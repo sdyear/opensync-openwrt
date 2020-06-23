@@ -6,4 +6,4 @@
 	url = git@github.com:plume-design/opensync-platform-openwrt.git
 [submodule "opensync/vendor/ath79"]
 	path = opensync/vendor/ath79
-	url = git@github.com:sdyear/opensync-vendor-ath79.git
+	url = https://github.com/sdyear/opensync-vendor-ath79
