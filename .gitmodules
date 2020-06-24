@@ -1,9 +1,12 @@
 [submodule "opensync/core"]
 	path = opensync/core
 	url = git@github.com:sdyear/opensync.git
+	branch = osync_1.4.0.1
 [submodule "opensync/platform/openwrt"]
 	path = opensync/platform/openwrt
 	url = git@github.com:plume-design/opensync-platform-openwrt.git
+	branch = osync_1.4.0
 [submodule "opensync/vendor/ath79"]
 	path = opensync/vendor/ath79
 	url = https://github.com/sdyear/opensync-vendor-ath79
+	branch = master
