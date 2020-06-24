@@ -8,5 +8,5 @@
 	branch = osync_1.4.0
 [submodule "opensync/vendor/ath79"]
 	path = opensync/vendor/ath79
-	url = https://github.com/sdyear/opensync-vendor-ath79
+	url = git@github.com:sdyear/opensync-vendor-ath79.git
 	branch = master
