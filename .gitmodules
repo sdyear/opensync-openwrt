@@ -4,7 +4,7 @@
 	branch = osync_1.4.0.1
 [submodule "opensync/platform/openwrt"]
 	path = opensync/platform/openwrt
-	url = git@github.com:d=sdyear/opensync-platform-openwrt.git
+	url = git@github.com:sdyear/opensync-platform-openwrt.git
 	branch = osync_1.4.0
 [submodule "opensync/vendor/ath79"]
 	path = opensync/vendor/ath79
