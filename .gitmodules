@@ -10,3 +10,6 @@
 	path = opensync/vendor/ath79
 	url = git@github.com:sdyear/opensync-vendor-ath79.git
 	branch = master
+[submodule "opensync-controller"]
+	path = opensync-controller
+	url = git@github.com:sdyear/opensync-controller.git

@@ -7,4 +7,5 @@ RUN apt-get update \
             python3 python3-pip openvswitch-common openvswitch-switch libssl-dev \
     && apt-get clean
 
-RUN pip3 install kconfiglib
+
+
