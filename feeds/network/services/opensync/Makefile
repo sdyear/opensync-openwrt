@@ -21,6 +21,7 @@ define Package/opensync/description
 endef
 
 define Build/Prepare
+	python3 -m pip install kconfiglib
 	mkdir -p $(PKG_BUILD_DIR)
 	cp -ra $(OPENSYNC_SRC)/.git $(PKG_BUILD_DIR)
 	cp -ra $(OPENSYNC_SRC)/.gitmodules $(PKG_BUILD_DIR)
