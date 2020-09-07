@@ -7,3 +7,6 @@
 [submodule "opensync-controller"]
 	path = opensync-controller
 	url = git@github.com:sdyear/opensync-controller.git
+[submodule "opensync/core"]
+	path = opensync/core
+	url = https://github.com/sdyear/opensync.git
