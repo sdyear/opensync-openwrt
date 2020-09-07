@@ -1,29 +1,33 @@
 # OpenSync on OpenWrt
 
-This project gathers the building blocks needed to create an OpenSync package for OpenWrt based platforms.  
-It also contains an example of a docker-based build environment, and instructions on how to run the 'ARMVIRT' target
-in the QEMU emulator.
+This project allows you to deploy individual PSK authentication on OpenWrt based platforms configured through SDN. This repositry porvides everything that is needed to build the custom version of OpenSync and run the controller to deploy the project.
 
+## Building and Setting Up
 
-For more information on OpenSync, visit https://opensync.io
+### building OpenSync 
 
-For more information on OpenWrt, visit https://openwrt.org
+These instruction cover how to build and set up this project using the example vendor target provided. Instructions on how to create other vendor target layers for other OpenWrt based APs are also provided below.
 
-
-Quick Start
------------
-
-After cloning this repository, fetch the submodules:
+After cloning this repository, change directory into the cloned repository and fetch the submodules:
 
 ```
+cd opensync-openwrt
 git submodule update --init
 ```
+An example target OpenWRT layer is provided in `opensync/vendor/ath79`, this can be modified to suport other OpenWRT targets with some relativly small changes.
 
-The `example/` directory provides a docker-based build environment that downloads a specified
-version of the OpenWrt SDK and creates the compiled OpenSync package, all in a single step.
+1. Copy `vendor/ath79` to `vendor/<new_target>`
+2. Modify `build/vendor-arch.mk`, replacing "ATH79" and "ath79" with the new name
+3. Rename and adjust `vendor/<new_target>/src/lib/target/inc/target_<new_target>.h`
+4. Modify `vendor/<new_target>/src/lib/target/entity.c` so that the functions return the correct model name, id, etc.
 
-See [`example/README.md`](example/README.md) for instructions.
+To build the OpenSync Package change direcotry to `example` and then run make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>.
 
+```
+cd example
+make TARGET=ATH79 SDK_URL=https://mirror.fsmg.org.nz/openwrt/snapshots/targets/ath79/nand/openwrt-sdk-ath79-nand_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+```
+This will output an .ipk file in the `example/out/` directory.
 
 Overview
 --------
@@ -47,42 +51,6 @@ External dependency:
     - For more information, consult [OpenWrt Documentation](https://openwrt.org/docs/start)
 
 
-Customizing the Build Procedure for the OpenSync Package
---------------------------------------------------------
-
-The basic steps to build the OpenSync package for OpenWrt are listed below.
-
-The `example/build.sh` script makes the necessary changes after downloading the OpenWrt SDK.  
-To integrate the OpenSync package into an existing build system, modify the build system accordingly.
-
-1. Add `python3-kconfiglib` to feeds.conf (build-time dependency):
-
-    ```
-    echo "src-link kconfiglib <path-to-this-repo>/feeds/lang" >> feeds.conf
-    ```
-
-2. Add the `opensync` feed to feeds.conf:
-
-    ```
-    echo "src-link opensync <path-to-this-repo>/feeds/network" >> feeds.conf
-    ```
-
-3. Update and install the feeds:
-
-    ```
-    ./scripts/feeds update -a
-    ./scripts/feeds install -a
-    ```
-
-4. To build the package, specify the following parameters:
-
-    ```
-    package/opensync/compile OPENSYNC_SRC=<path-to-this-repo> TARGET=<target>
-    ```
-
-Note that currently only building from a local source is supported.
-
-
 Creating a Custom Target (Vendor Layer)
 ---------------------------------------
 
@@ -94,18 +62,3 @@ Follow these steps for the basic bring-up of a new target:
 3. Rename and adjust `vendor/<new_target>/src/lib/target/inc/target_<new_target>.h`
 4. Modify `vendor/<new_target>/src/lib/target/entity.c` so that the functions return the correct model name, id, etc.
 5. Modify `vendor/<new_target>/ovsdb/static_configuration.json` according to actual Wi-Fi radios configuration
-
-To connect to the Plume Cloud, copy the certificates provided to you by Plume to `vendor/<new_target>/rootfs/common/usr/plume/certs/`.
-
-
-Implementing Functionality in the Platform Layer
-------------------------------------------------
-
-The `opensync-platform-openwrt` repository contains a minimum (stubs only) implementation.
-
-An actual implementation for specific hardware depends on the hardware itself, as well as the tools and drivers used.
-
-Platform and vendor layers are separate so that multiple vendor targets can use the same platform layer implementation
-(a vendor target is linked to a specific platform implementation in `build/vendor-arch.mk`).
-
-The procedure to create custom platform implementations is similar to the procedure for creating a custom vendor target.
