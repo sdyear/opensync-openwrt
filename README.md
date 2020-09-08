@@ -1,6 +1,8 @@
-# OpenSync on OpenWrt
+# OpenSync on OpenWrt with Individual PSK
 
-This project allows you to deploy individual PSK authentication on OpenWrt based platforms configured through SDN. This repository provides everything that is needed to build the custom version of OpenSync and run the controller to deploy the project.
+This project allows you to deploy individual PSK authentication on OpenWrt based platforms configured through SDN. In this implementation of individual PSK based authentication, each AP has a default password which new devices are expected to use when they first connect. When a device connects, it's MAC address is searched in a PostgreSQL database, if the device is not registered in the database the default password of the AP is trying to connect to is searched, and that is returned as the expected password for the device to use. The devices' MAC address is then added to the database with the expected password for the AP the device is trying to connect to as the expected password for it. The same database is searched from all APs when a device connects, that means that once a device has connected once, it can always connect from any AP with only the expected password for the first AP it connected to.
+
+This repository provides everything that is needed to build the custom version of OpenSync and run the controller to deploy the project.
 
 ## Building and Setting Up
 
@@ -52,15 +54,17 @@ To change the address at which OpenSync expects the OpenSync controller to be at
 
 ### Running the Controller
 
+Before the controller is run, a PostgreSQL server with a database of the type definied in [opensync-controller/schema.sql](opensync-controller/schema.sql) must be running for it to connect to. The details of this database are configured in the controllers YAML based configuration file.
+
 The controller is in the opensync-controller directory and is run with the command ./controller <config-file.yml> <port number>. Port 6440 is recommended.
+
+The controller configuration file is YAML based. An example configuration file is included in the opensync-controller directory.
 
 The controller is written in python3 and requires the following python packages to be installed:
 - pyyaml
 - psycopg2
 - pyrad
 - six
-
-The controller configuration file is YAML based. An example configuration file is included in the opensync-controller directory.
 
 
 Overview
