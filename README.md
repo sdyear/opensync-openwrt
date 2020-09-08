@@ -50,7 +50,7 @@ Installing the custom OpenSync package on OpenWRT requires these packages to als
 
 To change the address at which OpenSync expects the OpenSync controller to be at while OpenSync is running, use the command below. Port 6440 is recommended.
 
-`/usr/plume/tools/ovsh u AWLAN_Node redirector_addr:=:"tcp:<IP address of controller>:<port>"`
+`/usr/plume/tools/ovsh u AWLAN_Node redirector_addr:="tcp:<IP address of controller>:<port>"`
 
 ### Running the Controller
 
@@ -70,12 +70,12 @@ The controller is written in python3 and requires the following python packages 
 Overview
 --------
 
-The `opensync-OpenWrt` project consists of the following key components:
+The main components of the `opensync-openwrt` project are contained in the submodules:
 
 * [opensync/core](https://github.com/sdyear/opensync)
-    - OpenSync core repository, included as a submodule (see https://opensync.io/documentation for more details)
+    - OpenSync core repository (see https://opensync.io/documentation for more details)
 * [opensync/platform/openwrt](https://github.com/sdyear/opensync-platform-openwrt)
-    - an example OpenSync target layer for OpenWrt based platforms
+    - the OpenSync target layer for OpenWrt based platforms
 * [opensync/vendor/armvirt](https://github.com/sdyear/opensync-vendor-ath79)
     - an example OpenSync vendor layer for the OpenWRT `ath79` target
 * [opensync-controller](https://github.com/sdyear/opensync-controller)
