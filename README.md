@@ -25,6 +25,7 @@ The address of the OpenSync controller can be set either before building the pac
 To set the address before building the package modify the line begining with `CONTROLLER_ADDR` in `opensync/platform/openwrt/build/openwrt.mk` with the format `CONTROLLER_ADDR="tcp:<ip of controller>:<port>"`. Port 6440 is recomended.
 
 To build the OpenSync Package change direcotry to `example` and then run `make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>`.
+To build OpenSync using the vendor target given in this repository run the commands below.
 
 ```
 cd example
@@ -51,6 +52,15 @@ To change the address at which OpenSync expects the OpenSync controller to be at
 
 ### Running the Controller
 
+The controller is in the opensync-controller directory and is run with the command ./controller <config-file.yml> <port number>. Port 6440 is recomended.
+
+The controller is written in python3 and requires the following python packages to be installed:
+- pyyaml
+- psycopg2
+- pyrad
+- six
+
+The controller configureation file is YAML based. An example configuration file is included in the opensync-controller directory.
 
 
 Overview
