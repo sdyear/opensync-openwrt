@@ -21,13 +21,37 @@ An example target OpenWRT layer is provided in `opensync/vendor/ath79`, this can
 3. Rename and adjust `vendor/<new_target>/src/lib/target/inc/target_<new_target>.h`
 4. Modify `vendor/<new_target>/src/lib/target/entity.c` so that the functions return the correct model name, id, etc.
 
-To build the OpenSync Package change direcotry to `example` and then run make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>.
+The address of the OpenSync controller can be set either before building the package or by SSHing into AP once OpenSync is running.
+To set the address before building the package modify the line begining with `CONTROLLER_ADDR` in `opensync/platform/openwrt/build/openwrt.mk` with the format `CONTROLLER_ADDR="tcp:<ip of controller>:<port>"`. Port 6440 is recomended.
+
+To build the OpenSync Package change direcotry to `example` and then run `make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>`.
 
 ```
 cd example
 make TARGET=ATH79 SDK_URL=https://mirror.fsmg.org.nz/openwrt/snapshots/targets/ath79/nand/openwrt-sdk-ath79-nand_gcc-8.4.0_musl.Linux-x86_64.tar.xz
 ```
 This will output an .ipk file in the `example/out/` directory.
+
+### Installing OpenSync
+
+Installing the custom OpenSync package on OpenWRT reqires these packages to also be installed 
+- libev
+- jansson
+- protobuf
+- libprotobuf-c
+- libmosquitto
+- libopenssl
+- openvswitch
+- libpcap
+- hostapd (a patched version of hostapd that works with Open vSwitch is required and avliable [here](http://packages.wand.net.nz/openwrt/hostapd/).
+
+To change the address at which OpenSync expects the OpenSync controller to be at while OpenSync is running use the command below. Port 6440 is recomended.
+
+`/usr/plume/tools/ovsh u AWLAN_Node redirector_addr:=:"tcp:<IP address of controller>:<port>"`
+
+### Running the Controller
+
+
 
 Overview
 --------
@@ -37,28 +61,8 @@ The `opensync-openwrt` project consists of the following key components:
 * [opensync/core](https://github.com/plume-design/opensync)
     - OpenSync core repository, included as a submodule (see https://opensync.io/documentation for more details)
 * [opensync/platform/openwrt](https://github.com/plume-design/opensync-platform-openwrt)
-    - an example OpenSync target layer for OpenWrt based platforms (minimum implementation, stubs only)
+    - an example OpenSync target layer for OpenWrt based platforms
 * [opensync/vendor/armvirt](https://github.com/plume-design/opensync-vendor-armvirt)
-    - an example OpenSync vendor layer for QEMU `armvirt` target (minimum implementation, stubs only)
-* [feeds/network/services/opensync/Makefile](feeds/network/services/opensync/Makefile)
+    - an example OpenSync vendor layer for the OpenWRT `ath79` target
+* [opensync_controller](opensync_controller)
     - OpenWrt makefile needed to build OpenSync
-* [feeds/lang/python/python3-kconfiglib/Makefile](feeds/lang/python/python3-kconfiglib/Makefile)
-    - OpenWrt makefile needed to build the host-side kconfiglib dependency
-
-External dependency:
-
-* [OpenWrt SDK](https://openwrt.org/docs/guide-developer/using_the_sdk)
-    - For more information, consult [OpenWrt Documentation](https://openwrt.org/docs/start)
-
-
-Creating a Custom Target (Vendor Layer)
----------------------------------------
-
-To create a new target, it is best to use the `vendor/armvirt` tree as a template.
-Follow these steps for the basic bring-up of a new target:
-
-1. Copy `vendor/armvirt` to `vendor/<new_target>`
-2. Modify `build/vendor-arch.mk`, replacing "ARMVIRT" and "armvirt" with the new name
-3. Rename and adjust `vendor/<new_target>/src/lib/target/inc/target_<new_target>.h`
-4. Modify `vendor/<new_target>/src/lib/target/entity.c` so that the functions return the correct model name, id, etc.
-5. Modify `vendor/<new_target>/ovsdb/static_configuration.json` according to actual Wi-Fi radios configuration
