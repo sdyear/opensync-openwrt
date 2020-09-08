@@ -6,14 +6,14 @@ This repository provides everything that is needed to build the custom version o
 
 ## Building and Setting Up
 
-### building OpenSync 
+### Building OpenSync 
 
 These instruction cover how to build and set up this project using the example vendor target provided. Instructions on how to create other vendor target layers for other OpenWrt based APs are also provided below.
 
 After cloning this repository, change directory into the cloned repository and fetch the submodules:
 
 ```
-cd opensync-OpenWrt
+cd opensync-openwrt
 git submodule update --init
 ```
 An example target OpenWRT layer is provided in `opensync/vendor/ath79`, this can be modified to support other OpenWRT targets with some relatively small changes.
