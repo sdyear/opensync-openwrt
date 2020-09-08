@@ -68,11 +68,11 @@ Overview
 
 The `opensync-OpenWrt` project consists of the following key components:
 
-* [opensync/core](https://github.com/plume-design/opensync)
+* [opensync/core](https://github.com/sdyear/opensync)
     - OpenSync core repository, included as a submodule (see https://opensync.io/documentation for more details)
-* [opensync/platform/openwrt](https://github.com/plume-design/opensync-platform-openwrt)
+* [opensync/platform/openwrt](https://github.com/sdyear/opensync-platform-openwrt)
     - an example OpenSync target layer for OpenWrt based platforms
-* [opensync/vendor/armvirt](https://github.com/plume-design/opensync-vendor-armvirt)
+* [opensync/vendor/armvirt](https://github.com/sdyear/opensync-vendor-ath79)
     - an example OpenSync vendor layer for the OpenWRT `ath79` target
-* [opensync_controller](opensync_controller)
+* [opensync-controller](https://github.com/sdyear/opensync-controller)
     - OpenWrt makefile needed to build OpenSync
