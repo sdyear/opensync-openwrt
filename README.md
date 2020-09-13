@@ -26,7 +26,7 @@ An example target OpenWRT layer is provided in `opensync/vendor/ath79`, this can
 The address of the OpenSync controller can be set either before building the package or by SSHing into AP once OpenSync is running.
 To set the address before building the package modify the line begining with `CONTROLLER_ADDR` in `opensync/platform/openwrt/build/openwrt.mk` with the format `CONTROLLER_ADDR="tcp:<ip of controller>:<port>"`. Port 6440 is recomended.
 
-To build the OpenSync Package change directory to `example` and then run `make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>`.
+To build the OpenSync Package change directory to `example` and then run `make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>`. The sdk should be for the version of OpenWrt you are targeting and must be version 19.07.1 or later.
 To build OpenSync using the vendor target given in this repository run the commands below.
 
 ```
