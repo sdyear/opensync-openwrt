@@ -56,7 +56,9 @@ To change the address at which OpenSync expects the OpenSync controller to be at
 
 Before the controller is run, a PostgreSQL server with a database of the type definied in [opensync-controller/schema.sql](opensync-controller/schema.sql) must be running for it to connect to. The details of this database are configured in the controllers YAML based configuration file.
 
-The controller is in the opensync-controller directory and is run with the command ./controller <config-file.yml> <port number>. Port 6440 is recommended.
+The controller is in the opensync-controller directory and is run with the command below. Port 6440 is recommended.
+
+`./controller <config-file.yml> <port number>`
 
 The controller configuration file is YAML based. An example configuration file is included in the opensync-controller directory.
 
