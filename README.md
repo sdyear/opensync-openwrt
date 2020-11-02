@@ -13,6 +13,7 @@ These instruction cover how to build and set up this project using the example v
 After cloning this repository, change directory into the cloned repository and fetch the submodules:
 
 ```
+git clone https://github.com/sdyear/opensync-openwrt.git
 cd opensync-openwrt
 git submodule update --init
 ```
@@ -24,7 +25,7 @@ An example target OpenWRT layer is provided in `opensync/vendor/ath79`, this can
 4. Modify `vendor/<new_target>/src/lib/target/entity.c` so that the functions return the correct model name, id, etc.
 
 The address of the OpenSync controller can be set either before building the package or by SSHing into AP once OpenSync is running.
-To set the address before building the package modify the line begining with `CONTROLLER_ADDR` in `opensync/platform/openwrt/build/openwrt.mk` with the format `CONTROLLER_ADDR="tcp:<ip of controller>:<port>"`. Port 6440 is recomended.
+To set the address before building the package modify the line begining with `CONTROLLER_ADDR` in `opensync/platform/openwrt/build/openwrt.mk` with the format `CONTROLLER_ADDR="tcp:<ip of controller>:<port>"`. Port 6640 is the Internet Assigned Numbers Authority (IANA) assigned port number for OVSDB management protocol and so is recommended to be used for communication between the APs and controller.
 
 To build the OpenSync Package change directory to `example` and then run `make TARGET=<oepnwrt target> SDK_URL=<OpenWrt SDK>`. The sdk should be for the version of OpenWrt you are targeting and must be version 19.07.1 or later.
 To build OpenSync using the vendor target given in this repository run the commands below.
@@ -56,7 +57,7 @@ To change the address at which OpenSync expects the OpenSync controller to be at
 
 Before the controller is run, a PostgreSQL server with a database of the type definied in [opensync-controller/schema.sql](opensync-controller/schema.sql) must be running for it to connect to. The details of this database are configured in the controllers YAML based configuration file.
 
-The controller is in the opensync-controller directory and is run with the command below. Port 6440 is recommended.
+The controller is in the opensync-controller directory and is run with the command below. Port 6640 is recommended.
 
 `./controller <config-file.yml> <port number>`
 
